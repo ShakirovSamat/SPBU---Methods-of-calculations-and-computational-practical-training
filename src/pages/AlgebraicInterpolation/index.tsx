@@ -3,6 +3,7 @@ import { useState } from 'react';
 import '@vkontakte/vkui/dist/vkui.css';
 import { findValueByLagrange, getAbsoluteDiff, getNearestPoints, getPoints } from './utils';
 import { IPoint } from './types';
+import styles from './index.module.css';
 
 export const AlgebraicInterpolationPage = () => {
     const [m, setM] = useState<number>(0);
@@ -38,7 +39,7 @@ export const AlgebraicInterpolationPage = () => {
             <h2>Задача алгебарического интерполирования</h2>
             <h4>Вариант №3</h4>
             <form>
-                <div style={{display: 'flex', gap: 20, justifyContent: 'center',  marginBottom: 20}}>
+                <div className={styles.formBlock}>
                     <FormItem top='Число значений в таблице: m'>
                      <Input onChange={(e) => setM(Number(e.target.value))}/>
                     </FormItem>
@@ -49,7 +50,7 @@ export const AlgebraicInterpolationPage = () => {
                         <Input onChange={(e) => setB(Number(e.target.value))}/>
                     </FormItem>
                 </div>
-                <div style={{display: 'flex', gap: 20, justifyContent: 'center',  marginBottom: 20}}>
+                <div className={styles.formBlock}>
                     <FormItem top='Точка интерполирвоания: x'>
                      <Input onChange={(e) => setX(Number(e.target.value))}/>
                     </FormItem>
@@ -59,15 +60,15 @@ export const AlgebraicInterpolationPage = () => {
                 </div>
                 <Button onClick={onClick}>Вычислить</Button>
             </form>
-            <div style={{display: 'flex', flexDirection: 'column', gap: 75}}>
+            <div className={styles.contentContainer}>
                 <div>
                     {points && <h3>Исходная таблица значений функции</h3>}
-                    <div style={{display: 'flex', gap: 30, flexWrap: 'wrap', flexDirection: 'column', maxHeight: 100 * m / 3}}>
+                    <div className={styles.pointsContainer} style={{ maxHeight: 100 * m / 3}}>
                         {points && points.map((point, index) => {
                             return (
-                                <div style={{display: 'flex', gap: 5}}>
+                                <div className={styles.pointBlock}>
                                     <p>{index + 1})</p>
-                                    <div style={{display: 'flex', gap: 10, border: '1px white solid', padding: 10, borderRadius: 5}}>
+                                    <div className={styles.coordinateBlock}>
                                         <div>x: {point.x}</div>
                                         <div>y: {point.y}</div>
                                     </div>
@@ -78,12 +79,12 @@ export const AlgebraicInterpolationPage = () => {
                 </div>
                 <div>
                     {nearestPoints && <h3>Набор узлов , ближайших к точке x, по которым будет строиться интерполяционный многочлен</h3>}
-                    <div style={{display: 'flex', gap: 30, flexWrap: 'wrap', flexDirection: 'column', maxHeight: 100 * n / 3}}>
+                    <div className={styles.pointsContainer} style={{ maxHeight: 100 * m / 3}}>
                         {nearestPoints && nearestPoints.map((point, index) => {
                             return (
-                                <div style={{display: 'flex', gap: 5}}>
+                                <div className={styles.pointBlock}>
                                     <p>{index + 1})</p>
-                                    <div style={{display: 'flex', gap: 10, border: '1px white solid', padding: 10, borderRadius: 5}}>
+                                    <div className={styles.coordinateBlock}>
                                         <div>x: {point.x}</div>
                                         <div>y: {point.y}</div>
                                     </div>
