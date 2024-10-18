@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    transition: color 0.25s;
+}
+
+.link {
+    width: 250px;
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s,
+              color 0.25s;
+}
+
+.link:hover {
+    color: brown;
+    border-color: brown;
+}
+
+.title {
+
+}
