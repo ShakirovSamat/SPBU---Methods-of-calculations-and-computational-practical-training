@@ -36,7 +36,8 @@ export const AlgebraicInterpolationPage = () => {
     return (
         <>
             <h2>Задача алгебарического интерполирования</h2>
-            <h4>Вариант №3</h4>
+            <h4>Вариант №3 e(x) - x</h4>
+            
             <form>
                 <div style={{display: 'flex', gap: 20, justifyContent: 'center',  marginBottom: 20}}>
                     <FormItem top='Число значений в таблице: m'>
@@ -97,7 +98,7 @@ export const AlgebraicInterpolationPage = () => {
                     {result && <div>{result}</div>}
                 </div>
                 <div style={{marginBottom: 50}}>
-                    {diff && <h3>Значение абсолютной фактической погрешности для флрмулы Лагранжа</h3>}
+                    {diff && <h3>Значение абсолютной фактической погрешности для формулы Лагранжа</h3>}
                     {diff && <div>{diff}</div>}
                 </div>
             </div>
