@@ -2,18 +2,7 @@ import { useState } from 'react';
 import './index.module.css'
 import { Button, FormItem, Input } from '@vkontakte/vkui'
 import { bisection, secant, separateRoots, tangents, tangentsModified } from './utils';
-
-type TResult = {
-  root: number,
-  startApproximation: number | number[],
-  solution: number,
-  steps: number,
-  solutionDiff: number,
-}
-
-type TBisectionResult = {
-    lastSegmentWeight: number,
-} & TResult;
+import { TBisectionResult, TResult } from './types';
 
 export const NonliniearEquationPage = () => {
   const [A, setA] = useState<number>(0);
