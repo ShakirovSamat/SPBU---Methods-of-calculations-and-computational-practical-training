@@ -1,3 +1,10 @@
+.head {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .rowContainer {
     display: flex;
     gap: 50px;
@@ -26,9 +33,80 @@
     color: brown;
 }
 
-.container {
+.form {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.formBlock {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.contentContainer {
+    display:  flex;
+    flex-direction:  column;
+    justify-content: center;
+    align-items: center;
+    gap: 150px;
+}
+
+.pointsContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: start;
+}
+
+.pointBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-right: 35px;
+}
+
+.coordinateBlock {
+    display: flex;
+    gap: 10px;
+    border: 1px white solid;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.table {
+	width: 100%;
+	margin-bottom: 20px;
+	border: 2px solid  rgb(222, 222, 222);
+	border-top: 2px solid  rgb(222, 222, 222);
+	border-bottom: 2px solid  rgb(222, 222, 222);
+	border-collapse: collapse; 
+	outline: 3px solid brown;
+	font-size: 15px;
+	background: #1a1a1a!important;
+    color: rgb(222, 222, 222); 
+}
+.table th {
+	font-weight: bold;
+	padding: 7px;
+	background: brown;
+	border: none;
+	text-align: center;
+	font-size: 15px;
+	border-top: 2px solid  rgb(222, 222, 222);
+	border-bottom: 2px solid  rgb(222, 222, 222);
+}
+.table td {
+	padding: 7px;
+	border: none;
+	border-top: 1px solid  rgb(222, 222, 222);
+	border-bottom: 1px solid  rgb(222, 222, 222);
+	font-size: 15px;
+}
+.table tbody tr:nth-child(even){
+	background: #272727!important;
 }

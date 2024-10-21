@@ -20,7 +20,10 @@
 
 .pointBlock {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 5px;
+    margin-right: 35px;
 }
 
 .coordinateBlock {

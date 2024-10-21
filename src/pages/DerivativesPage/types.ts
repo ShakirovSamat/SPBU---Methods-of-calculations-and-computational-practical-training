@@ -17,3 +17,14 @@ export interface IPoint {
     x: number,
     y: number,
 };
+
+export interface IResult {
+    x: number,
+    y: number,
+    firstDerivative: number,
+    AbsDiffFirstDerivative: number,
+    accFirstDerivative: number,
+    AbsDiffaccFirstDerivative: number,
+    secondDerivative: number,
+    AbsDiffSecondDerivative: number,
+}
