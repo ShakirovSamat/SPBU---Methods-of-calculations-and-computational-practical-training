@@ -27,4 +27,8 @@ export interface IResult {
     AbsDiffaccFirstDerivative: number,
     secondDerivative: number,
     AbsDiffSecondDerivative: number,
+    moreAccFirstDerivative: number,
+    moreACcSecondDerivative: number,
+    AbsDiffMoreAccFirstDerivative: number,
+    AbsDiffMoreAccSecondDerivative: number,
 }

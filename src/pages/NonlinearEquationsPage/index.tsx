@@ -33,7 +33,7 @@ export const NonliniearEquationPage = () => {
         return ({
             ...result,
             startApproximation: segments[index][0] + ((segments[index][1] - segments[index][0]) / 2),
-            solution: f(result.root),
+            solution: result.root,
             solutionDiff: Math.abs(f(result.root) - 0),
           });
       })
@@ -46,7 +46,7 @@ export const NonliniearEquationPage = () => {
         return ({
           ...result,
           startApproximation: center,
-          solution: f(result.root),
+          solution: result.root,
           solutionDiff: Math.abs(f(result.root) - 0),
         });
       })
@@ -59,7 +59,7 @@ export const NonliniearEquationPage = () => {
         return ({
           ...result,
           startApproximation: center,
-          solution: f(result.root),
+          solution: result.root,
           solutionDiff: Math.abs(f(result.root) - 0),
         });
       })
@@ -71,7 +71,7 @@ export const NonliniearEquationPage = () => {
         return ({
           ...result,
           startApproximation: segment,
-          solution: f(result.root),
+          solution: result.root,
           solutionDiff: Math.abs(f(result.root) - 0),
         });
       })
@@ -115,56 +115,40 @@ export const NonliniearEquationPage = () => {
           </div>
         </div>
 
-        {bisectionsResults && <h3>Метод бисекции</h3>}
-        {bisectionsResults && bisectionsResults.map((bisection) => {
+        {bisectionsResults && bisectionsResults.map((bisection, index) => {
           return (
+          <>
             <div style={{padding: 20, display: 'flex', flexFlow: 'column', textAlign: 'left'}}>
-              <p style={{textAlign: 'center'}}>Точка: {bisection.root}</p>
-              <p>Начальное приблежение к корню: {bisection.startApproximation}</p>
+              <h3 style={{textAlign: 'center'}}>Отрезок: {`[${segments![index][0]}; ${segments![index][1]}] `}</h3>
+              <h3>Метод бисекции</h3>
+              <p>Начальное приближение к корню: {bisection.startApproximation}</p>
               <p>Количество шагов: {bisection.steps}</p>
-              <p>Приближённое решение: {bisection.solution} </p>
+              <p>Корень: {bisection.solution} </p>
               <p>Длина последнего отрезка: {bisection.lastSegmentWeight}</p>
               <p>Абсолютная величина невязки: {bisection.solutionDiff}</p>
             </div>
-          );
-        })}
-
-        {tangentsResults && <h3>Метод Ньютона</h3>}
-        {tangentsResults && tangentsResults.map((bisection) => {
-          return (
             <div style={{padding: 20, display: 'flex', flexFlow: 'column', textAlign: 'left'}}>
-              <p style={{textAlign: 'center'}}>Точка: {bisection.root}</p>
-              <p>Начальное приблежение к корню: {bisection.startApproximation}</p>
-              <p>Количество шагов: {bisection.steps}</p>
-              <p>Приближённое решение: {bisection.solution} </p>
-              <p>Абсолютная величина невязки: {bisection.solutionDiff}</p>
+              <h3>Метод Ньютона</h3>
+              <p>Начальное приближение к корню: {tangentsResults![index].startApproximation}</p>
+              <p>Количество шагов: {tangentsResults![index].steps}</p>
+              <p>Корень: {tangentsResults![index].solution} </p>
+              <p>Абсолютная величина невязки: {tangentsResults![index].solutionDiff}</p>
             </div>
-          );
-        })}
-
-        {tangentsModifiedResults && <h3>Модифицированный метод Ньютона</h3>}
-        {tangentsModifiedResults && tangentsModifiedResults.map((bisection) => {
-          return (
             <div style={{padding: 20, display: 'flex', flexFlow: 'column', textAlign: 'left'}}>
-              <p style={{textAlign: 'center'}}>Точка: {bisection.root}</p>
-              <p>Начальное приблежение к корню: {bisection.startApproximation}</p>
-              <p>Количество шагов: {bisection.steps}</p>
-              <p>Приближённое решение: {bisection.solution} </p>
-              <p>Абсолютная величина невязки: {bisection.solutionDiff}</p>
+              <h3>Модифицированный метод Ньютона</h3>
+              <p>Начальное приближение к корню: {tangentsModifiedResults![index].startApproximation}</p>
+              <p>Количество шагов: {tangentsModifiedResults![index].steps}</p>
+              <p>Корень: {tangentsModifiedResults![index].solution} </p>
+              <p>Абсолютная величина невязки: {tangentsModifiedResults![index].solutionDiff}</p>
             </div>
-          );
-        })}
-
-        {secantsResults && <h3>Метод Секущих</h3>}
-        {secantsResults && secantsResults.map((bisection) => {
-          return (
             <div style={{padding: 20, display: 'flex', flexFlow: 'column', textAlign: 'left'}}>
-              <p style={{textAlign: 'center'}}>Точка: {bisection.root}</p>
-              <p>Начальное приблежение к корню: {bisection.startApproximation}</p>
-              <p>Количество шагов: {bisection.steps}</p>
-              <p>Приближённое решение: {bisection.solution} </p>
-              <p>Абсолютная величина невязки: {bisection.solutionDiff}</p>
+              <h3>Метод Секущих</h3>
+              <p>Начальное приближение к корню: {secantsResults![index].startApproximation}</p>
+              <p>Количество шагов: {secantsResults![index].steps}</p>
+              <p>Корень: {secantsResults![index].solution} </p>
+              <p>Абсолютная величина невязки: {secantsResults![index].solutionDiff}</p>
             </div>
+          </>
           );
         })}
     </>

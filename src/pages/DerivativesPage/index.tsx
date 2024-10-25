@@ -7,6 +7,7 @@ import { getAccFirstDerivative, getFirstDerivatives, getFunctionValues, getMoreA
 export const DerivativesPage = () => {
     const [activeOption, setActiveOption] = useState<string>('');
     const [moreAcc, setMoreAcc] = useState<string>('Нет');
+    const [pointIndex, setPointIndex] = useState<number>(0);
 
     const [error, setError] = useState<IErrorObject>();
     
@@ -162,8 +163,11 @@ export const DerivativesPage = () => {
             curAccFirstDerivative = getAccFirstDerivative(curPoints);
             curSecondDerivative = curPoints.map((point) => f1SecondDerivative(point.x));
 
-            moreAccFirstDerivative = getMoreAccurateFirstDerivatives(f1, m, x0, h);
-            moreAccSecondDerivative = getMoreAccurateSecondDerivatives(f2, m, x0, h);
+            if (moreAcc == 'Да') {
+                moreAccFirstDerivative = getMoreAccurateFirstDerivatives(f1, m, x0, h);
+                moreAccSecondDerivative = getMoreAccurateSecondDerivatives(f1, m, x0, h);
+            }
+            
             setPoints(curPoints);
         }
         else if (activeOption == '1'){
@@ -193,6 +197,10 @@ export const DerivativesPage = () => {
                 AbsDiffaccFirstDerivative: Math.abs(firstDerivatives[index] - curAccFirstDerivative![index]),
                 secondDerivative: secondDerivatives[index],
                 AbsDiffSecondDerivative: Math.abs(secondDerivatives[index] - curSecondDerivative[index]),
+                moreAccFirstDerivative: 0,
+                moreACcSecondDerivative: 0,
+                AbsDiffMoreAccFirstDerivative: 0,
+                AbsDiffMoreAccSecondDerivative: 0,
             });
         }));
 
@@ -201,12 +209,16 @@ export const DerivativesPage = () => {
                 return ({
                     x: curPoints[index].x,
                     y: curPoints[index].y,
-                    firstDerivative: moreAccFirstDerivative[index],
-                    AbsDiffFirstDerivative: Math.abs(firstDerivatives[index] - moreAccFirstDerivative![index]),
-                    accFirstDerivative: 0,
-                    AbsDiffaccFirstDerivative: 0,
-                    secondDerivative: moreAccSecondDerivative[index],
-                    AbsDiffSecondDerivative: Math.abs(secondDerivatives[index] - moreAccSecondDerivative[index]),
+                    firstDerivative: firstDerivatives[index],
+                    AbsDiffFirstDerivative: Math.abs(curFirstDerivative[index] - firstDerivatives![index]),
+                    accFirstDerivative: curAccFirstDerivative[index],
+                    AbsDiffaccFirstDerivative: Math.abs(firstDerivatives[index] - curAccFirstDerivative![index]),
+                    secondDerivative: secondDerivatives[index],
+                    AbsDiffSecondDerivative: Math.abs(curSecondDerivative[index] - secondDerivatives[index]),
+                    moreAccFirstDerivative: moreAccFirstDerivative[index],
+                    moreACcSecondDerivative: moreAccSecondDerivative[index],
+                    AbsDiffMoreAccFirstDerivative: Math.abs(curFirstDerivative[index] - moreAccFirstDerivative![index]),
+                    AbsDiffMoreAccSecondDerivative: Math.abs(curSecondDerivative[index] - moreAccSecondDerivative[index]),
                 });
             }));
         }
@@ -246,14 +258,14 @@ export const DerivativesPage = () => {
                 </form>
             </div>
             <div className={styles.contentContainer}>
-                <div>
+                {points && <div>
                     {points && <h3>Исходная таблица значений функции</h3>}
                     <div className={styles.pointsContainer} style={{ maxHeight: 90 * m / 3}}>
                         {points && points.map((point, index) => {
                             return (
                                 <div className={styles.pointBlock}>
                                     <p>{index + 1})</p>
-                                    <div className={styles.coordinateBlock}>
+                                    <div onClick={() => setPointIndex(index)}className={`${styles.coordinateBlock} ${styles.option} ${pointIndex == index? styles.activeOption : ''}`}>
                                         <div>x: {point.x}</div>
                                         <div>y: {point.y}</div>
                                     </div>
@@ -262,6 +274,7 @@ export const DerivativesPage = () => {
                         })}
                     </div>
                 </div>
+                }
                 {result && 
                 <table className={styles.table}>
                     <thead>
@@ -294,8 +307,8 @@ export const DerivativesPage = () => {
                     </tbody>
                 </table>
                 }
-                <div>
-                    {accResult && <h3>Результат методом Рунге-Ромберга</h3>}
+                {accResult && <div>
+                    {accResult && <h3>Результат методом Рунге-Ромберга первая производная</h3>}
                     {accResult && 
                     <table className={styles.table}>
                         <thead>
@@ -304,27 +317,60 @@ export const DerivativesPage = () => {
                                 <th>f(xi)</th>
                                 <th>f'(xi)чд, , o(h^2)</th>
                                 <th>|f'(xi)т - f'(xi)чд|, o(h^2)</th> 
-                                <th>f''(xi)чд</th>
-                                <th>|f''(xi)т - f''(xi)чд|</th>
+                                <th>f'(xi)чд уточнение</th>
+                                <th>|f'(xi)т - f'(xi)чд уточнение|</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {accResult && accResult.map((item) => {
-                                return (
+                            {accResult &&
+                                (
                                     <tr>
-                                        <td>{item.x}</td>
-                                        <td>{item.y}</td>
-                                        <td>{item.firstDerivative}</td>
-                                        <td>{item.AbsDiffFirstDerivative}</td> 
-                                        <td>{item.secondDerivative}</td>
-                                        <td>{item.AbsDiffSecondDerivative}</td>
+                                        <td>{accResult[pointIndex].x}</td>
+                                        <td>{accResult[pointIndex].y}</td>
+                                        <td>{accResult[pointIndex].firstDerivative}</td>
+                                        <td>{accResult[pointIndex].AbsDiffFirstDerivative}</td> 
+                                        <td>{accResult[pointIndex].moreAccFirstDerivative}</td>
+                                        <td>{accResult[pointIndex].AbsDiffMoreAccFirstDerivative}</td>
                                     </tr>
-                                );
-                            })}
+                                )
+                            }
                         </tbody>
                     </table>
                     }
                 </div>
+                }
+                {accResult && <div>
+                    {accResult && <h3>Результат методом Рунге-Ромберга вторая производная</h3>}
+                    {accResult && 
+                    <table className={styles.table}>
+                        <thead>
+                            <tr>
+                                <th>xi</th>
+                                <th>f(xi)</th>
+                                <th>f''(xi)чд, , o(h^2)</th>
+                                <th>|f''(xi)т - f''(xi)чд|, o(h^2)</th> 
+                                <th>f''(xi)чд уточнение</th>
+                                <th>|f''(xi)т - f''(xi)чд уточнение|</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {accResult &&
+                                (
+                                    <tr>
+                                        <td>{accResult[pointIndex].x}</td>
+                                        <td>{accResult[pointIndex].y}</td>
+                                        <td>{accResult[pointIndex].secondDerivative}</td>
+                                        <td>{accResult[pointIndex].AbsDiffSecondDerivative}</td> 
+                                        <td>{accResult[pointIndex].moreACcSecondDerivative}</td>
+                                        <td>{accResult[pointIndex].AbsDiffMoreAccSecondDerivative}</td>
+                                    </tr>
+                                )
+                            }
+                        </tbody>
+                    </table>
+                    }
+                </div>
+                }
             </div>
         </div>
     );
