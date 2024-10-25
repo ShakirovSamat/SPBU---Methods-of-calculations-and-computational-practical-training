@@ -99,7 +99,7 @@ export const AlgebraicInterpolationPage = () => {
                     {result && <div>{result}</div>}
                 </div>
                 <div style={{marginBottom: 50}}>
-                    {diff && <h3>Значение абсолютной фактической погрешности для формулы Лагранжа</h3>}
+                    {diff && <h3>Значение абсолютной фактической погрешности</h3>}
                     {diff && <div>{diff}</div>}
                 </div>
             </div>
