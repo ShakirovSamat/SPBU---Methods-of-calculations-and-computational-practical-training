@@ -265,7 +265,7 @@ export const DerivativesPage = () => {
                             return (
                                 <div className={styles.pointBlock}>
                                     <p>{index + 1})</p>
-                                    <div onClick={() => setPointIndex(index)}className={`${styles.coordinateBlock} ${styles.option} ${pointIndex == index? styles.activeOption : ''}`}>
+                                    <div onClick={() => setPointIndex(index)}className={`${styles.coordinateBlock} ${moreAcc == 'Да' && styles.option} ${(pointIndex == index && moreAcc == 'Да')? styles.activeOption : ''}`}>
                                         <div>x: {point.x}</div>
                                         <div>y: {point.y}</div>
                                     </div>
