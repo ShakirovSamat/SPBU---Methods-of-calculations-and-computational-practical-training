@@ -54,14 +54,14 @@ export const getSecondDerivatives = (points: IPoint[]) => {
 
     const h = points[2].x - points[1].x;
 
-    derivatives[0] = 0;
+    derivatives[0] = (2 * points[0].y - 5 * points[1].y + 4 * points[2].y - points[3].y) / (h**2);
 
     for (let i = 1; i < points.length - 1; ++i) {
         derivatives[i] = (points[i + 1].y - 2 * points[i].y + points[i - 1].y) / (h**2);
     }
 
     const len = points.length - 1;
-    derivatives[len] = 0;
+    derivatives[len] = (2 * points[len].y - 5 * points[len - 1].y + 4 * points[len - 2].y - points[len - 3].y) / (h**2);
 
     return derivatives;
 };
